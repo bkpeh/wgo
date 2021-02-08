@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"net"
 
 	datamsg "github.com/bkpeh/wgo/proto"
@@ -16,6 +17,8 @@ func (trans transaction) SetTransaction(ctx context.Context, t *datamsg.Transact
 	tr := &datamsg.TransactionReply{
 		Code: datamsg.TransactionCode_TRANSACTIONSUCCESS,
 	}
+
+	fmt.Println("SetTransaction CB")
 
 	return tr, nil
 }

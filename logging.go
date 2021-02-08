@@ -36,12 +36,12 @@ func PrintErr(s string, e error) {
 	printlog(logerr, s, e)
 }
 
-//PrintInfo is to print with [ERROR] prefix
+//PrintInfo is to print with [INFO] prefix
 func PrintInfo(s string, e error) {
 	printlog(loginfo, s, e)
 }
 
-//PrintDebug is to print with [ERROR] prefix
+//PrintDebug is to print with [DEBUG] prefix
 func PrintDebug(s string, e error) {
 	printlog(logdebug, s, e)
 }
