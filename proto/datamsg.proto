@@ -1,0 +1,63 @@
+syntax = "proto3";
+
+package datamsg;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/bkpeh/wgo/proto;datamsg";
+
+enum LevelType {
+    SECONDARY1 = 0;
+    SECONDARY2 = 1;
+    SECONDARY3 = 2;
+    SECONDARY4 = 3;
+}
+
+enum StreamType {
+    EXPRESS = 0;
+    NORMALACADEMIC = 2;
+    NORMALTECHNICAL = 3;
+}
+
+enum TransactionCode {
+    TRANSACTIONSUCCESS = 0;
+    TRANSACTIONFAIL = 1;
+}
+
+message Books {
+    string title = 1;
+    string subject = 2;
+    double price = 3;
+    StreamType stream = 4;
+    LevelType level = 5;
+}
+
+message Person {
+    string name = 1;
+    string address =2;
+    int32 phone = 3;
+}
+
+message Transaction {
+    string transaction_id = 1;
+    google.protobuf.Timestamp transaction_time = 2;
+    Person customer = 3;
+    repeated Books bookslist = 4;
+}
+
+message BookQuery {
+    LevelType qlevel = 1;
+    StreamType qstream = 2;
+}
+
+message TransactionReply {
+    TransactionCode code = 1;
+}
+
+service SetTransactionInfo {
+    rpc SetTransaction(Transaction) returns (TransactionReply);
+}
+
+service GetBooksInfo {
+    rpc GetBooks(BookQuery) returns (Books);
+}
