@@ -9,9 +9,9 @@ import (
 	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/feature/dynamodb/attributevalue"
 	"github.com/aws/aws-sdk-go-v2/service/dynamodb"
+	"github.com/aws/aws-sdk-go-v2/service/dynamodb/types"
 	datamsg "github.com/bkpeh/wgo/proto"
 	"google.golang.org/grpc"
-	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
 type transaction struct {
@@ -73,58 +73,68 @@ func startserver() {
 }
 
 func settransactiontoDB(conn *dynamodb.Client) {
-
-	//Print Table(s) name
-	resp, err := conn.ListTables(context.TODO(), &dynamodb.ListTablesInput{
-		Limit: aws.Int32(5)})
-
-	if err != nil {
-		fmt.Println("Error in list table", err)
-	}
-
-	for _, tableName := range resp.TableNames {
-		fmt.Println("Table Name:", tableName)
-	}
-
-	t1 := datamsg.Transaction{
-		TransactionId:   "20210001",
-		TransactionTime: timestamppb.Now(),
-		Customer: &datamsg.Person{
-			Name:    "Peter",
-			Address: "Singapore",
-			Phone:   1234567,
-		},
-		Bookslist: []*datamsg.Books{
-			{
-				Title:   "Speak English",
-				Subject: "English",
-				Price:   10.50,
-				Stream:  datamsg.StreamType_EXPRESS,
-				Level:   datamsg.LevelType_SECONDARY1,
+	/*
+		t1 := datamsg.Transaction{
+			TransactionId:   "20210001",
+			TransactionTime: timestamppb.Now(),
+			Customer: &datamsg.Person{
+				Name:    "Peter",
+				Address: "Singapore",
+				Phone:   1234567,
 			},
-			{
-				Title:   "Calculate",
-				Subject: "Maths",
-				Price:   15.80,
-				Stream:  datamsg.StreamType_EXPRESS,
-				Level:   datamsg.LevelType_SECONDARY1,
+			Bookslist: []*datamsg.Books{
+				{
+					Title:   "Speak English",
+					Subject: "English",
+					Price:   10.50,
+					Stream:  datamsg.StreamType_EXPRESS,
+					Level:   datamsg.LevelType_SECONDARY1,
+				},
+				{
+					Title:   "Calculate",
+					Subject: "Maths",
+					Price:   15.80,
+					Stream:  datamsg.StreamType_EXPRESS,
+					Level:   datamsg.LevelType_SECONDARY1,
+				},
 			},
-		},
-	}
+		}
 
-	item, err := attributevalue.MarshalMap(&t1)
+		item, err := attributevalue.MarshalMap(&t1)
 
-	if err != nil {
-		PrintErr("Cannot MarshalMap", err)
-	}
+		if err != nil {
+			PrintErr("Cannot MarshalMap", err)
+		}
 
-	_, err = conn.PutItem(context.TODO(), &dynamodb.PutItemInput{
+		_, err = conn.PutItem(context.TODO(), &dynamodb.PutItemInput{
+			TableName: aws.String("TransactionTable"),
+			Item:      item,
+		})
+
+		if err != nil {
+			PrintErr("Cannot PutItem", err)
+		}
+	*/
+
+	output, err := conn.GetItem(context.TODO(), &dynamodb.GetItemInput{
 		TableName: aws.String("TransactionTable"),
-		Item:      item,
+		Key: map[string]types.AttributeValue{
+			"TransactionId": &types.AttributeValueMemberS{"20210001"},
+		},
 	})
 
 	if err != nil {
-		PrintErr("Cannot PutItem", err)
+		PrintErr("Cannot GetItem", err)
 	}
+
+	t := &datamsg.Transaction{}
+
+	err = attributevalue.UnmarshalMap(output.Item, t)
+
+	if err != nil {
+		PrintErr("Cannot UnmarshalMap", err)
+	}
+
+	fmt.Println("T:", t)
 
 }
