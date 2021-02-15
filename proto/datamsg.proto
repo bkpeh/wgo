@@ -15,8 +15,8 @@ enum LevelType {
 
 enum StreamType {
     EXPRESS = 0;
-    NORMALACADEMIC = 2;
-    NORMALTECHNICAL = 3;
+    NORMALACADEMIC = 1;
+    NORMALTECHNICAL = 2;
 }
 
 enum TransactionCode {
