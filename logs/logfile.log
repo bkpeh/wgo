@@ -30,3 +30,4 @@
 [ERROR]2021/02/08 23:13:26 Error Test Error Test
 [ERROR]2021/02/15 17:56:58 Cannot PutItem operation error DynamoDB: PutItem, https response error StatusCode: 400, RequestID: f070432a-ae0f-4956-8dfa-c7b2ea783e28, api error ValidationException: One of the required keys was not given a value
 [ERROR]2021/02/15 17:57:51 Cannot PutItem operation error DynamoDB: PutItem, https response error StatusCode: 400, RequestID: b9ec9d51-a76a-4021-bba3-95539fa0d5d1, api error ValidationException: One of the required keys was not given a value
+[ERROR]2021/02/15 18:07:28 Cannot PutItem operation error DynamoDB: PutItem, https response error StatusCode: 400, RequestID: df69ec5a-c022-4113-9cf0-56ca02627cf0, api error ValidationException: One of the required keys was not given a value

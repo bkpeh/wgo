@@ -74,6 +74,18 @@ func startserver() {
 
 func settransactiontoDB(conn *dynamodb.Client) {
 
+	//Print Table(s) name
+	resp, err := conn.ListTables(context.TODO(), &dynamodb.ListTablesInput{
+		Limit: aws.Int32(5)})
+
+	if err != nil {
+		fmt.Println("Error in list table", err)
+	}
+
+	for _, tableName := range resp.TableNames {
+		fmt.Println("Table Name:", tableName)
+	}
+
 	t1 := datamsg.Transaction{
 		TransactionId:   "20210001",
 		TransactionTime: timestamppb.Now(),
@@ -114,4 +126,5 @@ func settransactiontoDB(conn *dynamodb.Client) {
 	if err != nil {
 		PrintErr("Cannot PutItem", err)
 	}
+
 }
