@@ -1,0 +1,18 @@
+{
+    "books" : [
+        {
+            "title":   "Speak English",
+            "subject": "English",
+            "price":   10.50,
+            "stream": 0,
+            "level":   0
+        },
+        {
+            "title":   "Calculate",
+            "subject": "Maths",
+            "price":   15.80,
+            "stream":  0,
+            "level":   0
+        }
+    ]
+}

@@ -93,7 +93,7 @@ var _SetTransactionInfo_serviceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "proto/datamsg.proto",
+	Metadata: "datamsg.proto",
 }
 
 // GetBooksInfoClient is the client API for GetBooksInfo service.
@@ -176,5 +176,5 @@ var _GetBooksInfo_serviceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "proto/datamsg.proto",
+	Metadata: "datamsg.proto",
 }
